@@ -1,9 +1,7 @@
-# python
+# python3
 
 import argparse
 import re
-
-print("Hallo World!")
 
 parser = argparse.ArgumentParser(description = "This program converts a normal book txt file into paginated twee file.")
 parser.add_argument("input-file", help = "Input '.txt' file", type = argparse.FileType(mode = 'r', encoding = 'utf-8'))
@@ -13,9 +11,7 @@ parser.add_argument("-mwl", "--min-words-last-page",  nargs = "?", help = "Minim
 
 args = parser.parse_args()
 
-print(vars(args))
-
-print(vars(args)["input-file"])
+# print(vars(args))
 
 input_file = vars(args)["input-file"]
 output_file = vars(args)["output-file"]
@@ -36,7 +32,6 @@ input_line = str()
 
 # ignore initial new lines
 for input_line in input_file:
-  # print(":".join("{:02x}".format(ord(c)) for c in input_line))
   if input_line.startswith(u'\ufeff'):
     input_line = input_line[1:]
   if input_line == "\n":
@@ -80,17 +75,14 @@ while not end_of_file:
     line_word_count = int(0)
     if input_line != "\n":
       words = re.findall(r'\S+', input_line)
-      # print(input_line)
-      # print(words)
       line_word_count = len(words)
       chapter_word_count += line_word_count
-    # print("Word count = %d" % line_word_count)
     chapter_lines.append(input_line)
     chapter_line_word_count.append(line_word_count)
   else:
     end_of_file = True
 
-  print("Chapter total word count = %d" % chapter_word_count)
+  # print("Chapter total word count = %d" % chapter_word_count)
   chapter_words_used = int(0)
 
   line_item = int(0)
@@ -123,10 +115,10 @@ while not end_of_file:
         output_file.writelines([chapter_lines[line_item]])
         page_words += chapter_line_word_count[line_item]
         line_item += 1
-      print("Page " + current_label + " has " + str(page_words) + " words.")
+      # print("Page " + current_label + " has " + str(page_words) + " words.")
       break
     else:
-      print("Page " + current_label + " has " + str(page_words) + " words.")
+      # print("Page " + current_label + " has " + str(page_words) + " words.")
       minor_number += 1
       next_label = str(major_number) + "." + str(minor_number)
       page_footer = [
@@ -140,10 +132,6 @@ while not end_of_file:
 
   # at the end
   prev_label = current_label
-
-  # temporary
-  # if major_number == 3:
-  #  break
 
 # output end of book footer
 chapter_footer = [
