@@ -6,8 +6,9 @@ import re
 parser = argparse.ArgumentParser(description = "This program converts a normal book txt file into paginated twee file.")
 parser.add_argument("input-file", help = "Input '.txt' file", type = argparse.FileType(mode = 'r', encoding = 'utf-8'))
 parser.add_argument("output-file", help = "Output '.twee' file", type = argparse.FileType(mode = 'w', encoding = 'utf-8-sig'))
-parser.add_argument("-wc", "--word-count", nargs = "?", help = "Number of words per page.", type = int, default = 300)
-parser.add_argument("-mwl", "--min-words-last-page",  nargs = "?", help = "Minimum number of words on the last page of a chapter.", type = int, default = 100)
+parser.add_argument("-wc", "--word-count", nargs = "?", help = "Number of words per page (default: %(default)s).", type = int, default = 300)
+parser.add_argument("-mwl", "--min-words-last-page",  nargs = "?", help = "Minimum number of words on the last page of a chapter (default: %(default)s).",
+                    type = int, default = 100)
 
 args = parser.parse_args()
 
