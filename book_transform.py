@@ -41,10 +41,14 @@ for input_line in input_file:
 output_file.writelines([input_line])
 
 # read everything before the first Chapter
+skip_the_rest = False
 for input_line in input_file:
   if input_line.startswith("<strong>Chapter"):
     break
-  output_file.writelines([input_line])
+  if input_line.startswith(u'\u2003'):
+    skip_the_rest = True
+  if not skip_the_rest:
+    output_file.writelines([input_line])
 
 # read chapters
 major_number = int(0)
@@ -53,6 +57,7 @@ prev_label = str("Start")
 next_label = str()
 end_of_file = False
 while not end_of_file:
+  skip_the_rest = False
   major_number += 1
   minor_number = 0
   current_label = str(major_number) + "." + str(minor_number)
@@ -73,6 +78,10 @@ while not end_of_file:
   for input_line in input_file:
     if input_line.startswith("<strong>Chapter"):
       break
+    if input_line.startswith(u'\u2003'):
+      skip_the_rest = True
+    if skip_the_rest:
+      continue
     line_word_count = int(0)
     if input_line != "\n":
       words = re.findall(r'\S+', input_line)
