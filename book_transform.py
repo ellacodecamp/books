@@ -54,12 +54,14 @@ for input_line in input_file:
 major_number = int(0)
 minor_number = int(0)
 prev_label = str("Start")
+current_label = str()
 next_label = str()
 end_of_file = False
 while not end_of_file:
   skip_the_rest = False
   major_number += 1
   minor_number = 0
+  saved_current_label = current_label
   current_label = str(major_number) + "." + str(minor_number)
   chapter_header = [
     '<p style="text-align:left;">[[<<<|' + prev_label + ']]<span style="float:right;">[[>>>|' + current_label + ']]</span></p><br /><br />\n',
@@ -70,6 +72,8 @@ while not end_of_file:
   output_file.writelines(chapter_header)
   if major_number == 1:
     prev_label = str("Summary")
+  else:
+    prev_label = saved_current_label
 
   # get all chapter lines and count words in chapter
   chapter_lines = []
@@ -139,9 +143,6 @@ while not end_of_file:
       output_file.writelines(page_footer)
       prev_label = current_label
       current_label = next_label
-
-  # at the end
-  prev_label = current_label
 
 # output end of book footer
 chapter_footer = [
