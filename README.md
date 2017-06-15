@@ -25,3 +25,15 @@ This will show you all command line options. The basic use case is just to run t
 ``` python .\book_transform.py <input file name> <output file name>```
 
 To control the number of words per page and minimum number of words on the last page of the chapter, add corresponding command line options.
+
+## New ```txt2twee``` script
+
+On command prompt in Windows PowerShell windows type the following command
+
+```python .\txt2twee.py -h```
+
+This will show you all command line options. The basic use case is just to run this command as follows:
+
+``` python .\txt2twee.py <input file name> <output file name>```
+
+This will use all ```<h1>``` tag for chapter identification as this is default value.
